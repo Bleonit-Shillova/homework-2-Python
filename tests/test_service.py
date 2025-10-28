@@ -37,13 +37,5 @@ class ServiceTests(unittest.TestCase):
         self.assertAlmostEqual(avg, 90.0)
 
     def test_add_grade_invalid_value(self):
-        sid = service.add_student("Alba")
-        service.add_course("CS102", "Data Stuff")
-        service.enroll(sid, "CS102")
-
-        with self.assertRaises(ValueError):
-            service.add_grade(sid, "CS102", 150)  # invalid (>100)
-
-
-if __name__ == "__main__":
-    unittest.main()
+        sid = service.add_student("Alba"
+                                  "    unittest.main()
