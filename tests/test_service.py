@@ -2,6 +2,7 @@ import os
 import sys
 import unittest
 
+# Ensure project root is on sys.path
 PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
@@ -37,5 +38,14 @@ class ServiceTests(unittest.TestCase):
         self.assertAlmostEqual(avg, 90.0)
 
     def test_add_grade_invalid_value(self):
-        sid = service.add_student("Alba"
-                                  "    unittest.main()
+        # adding an invalid grade should raise ValueError
+        sid = service.add_student("Alba")
+        service.add_course("CS102", "Data Structures")
+        service.enroll(sid, "CS102")
+
+        with self.assertRaises(ValueError):
+            service.add_grade(sid, "CS102", 150)  # invalid (>100)
+
+
+if __name__ == "__main__":
+    unittest.main()
