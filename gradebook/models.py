@@ -1,14 +1,10 @@
-"""
-Data models for the gradebook.
-"""
+
 
 from typing import List
 
 
 class Student:
-    """
-    Represents a single student.
-    """
+
 
     def __init__(self, student_id: int, name: str):
         if not isinstance(student_id, int):
@@ -24,9 +20,7 @@ class Student:
 
 
 class Course:
-    """
-    Represents a course offering.
-    """
+
 
     def __init__(self, code: str, title: str):
         if not code or not isinstance(code, str):
@@ -42,9 +36,7 @@ class Course:
 
 
 class Enrollment:
-    """
-    Connects a student to a course and tracks their grades.
-    """
+
 
     def __init__(self, student_id: int, course_code: str, grades: List[float] | None = None):
         if not isinstance(student_id, int):
@@ -52,7 +44,7 @@ class Enrollment:
         if not course_code or not isinstance(course_code, str):
             raise ValueError("course_code must be a non-empty string")
 
-        # Validate grades list
+
         if grades is None:
             grades = []
         for g in grades:

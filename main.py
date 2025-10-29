@@ -1,6 +1,4 @@
-"""
-Command-line interface for the gradebook project.
-"""
+
 
 import argparse
 import logging
@@ -8,7 +6,6 @@ import os
 
 from gradebook import service
 
-# logging setup (same log file as storage)
 LOG_DIR = os.path.join(os.path.dirname(__file__), "logs")
 os.makedirs(LOG_DIR, exist_ok=True)
 LOG_FILE = os.path.join(LOG_DIR, "app.log")

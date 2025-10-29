@@ -3,8 +3,25 @@
     {
       "id": 1,
       "name": "Test Student"
+    },
+    {
+      "id": 2,
+      "name": "Valton Nitaj"
     }
   ],
-  "courses": [],
-  "enrollments": []
+  "courses": [
+    {
+      "code": "CS101",
+      "title": "Intro to CS"
+    }
+  ],
+  "enrollments": [
+    {
+      "student_id": 1,
+      "course_code": "CS101",
+      "grades": [
+        95.0
+      ]
+    }
+  ]
 }

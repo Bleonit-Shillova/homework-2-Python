@@ -1,10 +1,7 @@
-"""
-Business logic for gradebook.
-These functions are used by the CLI.
-"""
+
 
 from typing import List, Dict, Any, Optional
-from . import storage  # relative import inside the package
+from . import storage
 from .models import Student, Course, Enrollment
 
 
@@ -15,9 +12,7 @@ def _get_next_student_id(data: Dict[str, Any]) -> int:
 
 
 def add_student(name: str) -> int:
-    """
-    Create a new student and return their new ID.
-    """
+
     data = storage.load_data()
 
     new_id = _get_next_student_id(data)
@@ -30,12 +25,10 @@ def add_student(name: str) -> int:
 
 
 def add_course(code: str, title: str) -> None:
-    """
-    Add a new course. Course code must be unique.
-    """
+
     data = storage.load_data()
 
-    # check duplicate
+
     for c in data["courses"]:
         if c["code"] == code:
             raise ValueError(f"Course {code} already exists.")
@@ -47,24 +40,21 @@ def add_course(code: str, title: str) -> None:
 
 
 def enroll(student_id: int, course_code: str) -> None:
-    """
-    Enroll a student in a course.
-    """
+
     data = storage.load_data()
 
-    # verify student exists
+
     if not any(s["id"] == student_id for s in data["students"]):
         raise ValueError(f"Student {student_id} not found.")
 
-    # verify course exists
+
     if not any(c["code"] == course_code for c in data["courses"]):
         raise ValueError(f"Course {course_code} not found.")
 
-    # check if already enrolled
+
     for e in data["enrollments"]:
         if e["student_id"] == student_id and e["course_code"] == course_code:
-            return  # silently ignore, or raise? We'll just ignore.
-
+            return
     enrollment = Enrollment(student_id=student_id, course_code=course_code, grades=[])
     data["enrollments"].append(
         {
@@ -78,9 +68,7 @@ def enroll(student_id: int, course_code: str) -> None:
 
 
 def add_grade(student_id: int, course_code: str, grade: float) -> None:
-    """
-    Add a grade (0-100) for a student's enrollment.
-    """
+
     data = storage.load_data()
 
     # validate grade
@@ -100,9 +88,7 @@ def add_grade(student_id: int, course_code: str, grade: float) -> None:
 
 
 def list_students() -> List[Dict[str, Any]]:
-    """
-    Return list of students sorted by name then id.
-    """
+
     data = storage.load_data()
     return sorted(
         data["students"],
@@ -111,9 +97,8 @@ def list_students() -> List[Dict[str, Any]]:
 
 
 def list_courses() -> List[Dict[str, Any]]:
-    """
-    Return list of courses sorted by code.
-    """
+
+
     data = storage.load_data()
     return sorted(
         data["courses"],
@@ -122,9 +107,7 @@ def list_courses() -> List[Dict[str, Any]]:
 
 
 def list_enrollments() -> List[Dict[str, Any]]:
-    """
-    Return list of enrollments sorted by student_id then course_code.
-    """
+
     data = storage.load_data()
     return sorted(
         data["enrollments"],
@@ -133,10 +116,7 @@ def list_enrollments() -> List[Dict[str, Any]]:
 
 
 def compute_average(student_id: int, course_code: str) -> Optional[float]:
-    """
-    Average grade for ONE course for ONE student.
-    Returns None if no grades yet.
-    """
+
     data = storage.load_data()
 
     for e in data["enrollments"]:
@@ -152,10 +132,7 @@ def compute_average(student_id: int, course_code: str) -> Optional[float]:
 
 
 def compute_gpa(student_id: int) -> Optional[float]:
-    """
-    Simple GPA = mean of all course averages for this student.
-    Returns None if the student has no graded courses.
-    """
+
     data = storage.load_data()
 
     # get all enrollments for that student

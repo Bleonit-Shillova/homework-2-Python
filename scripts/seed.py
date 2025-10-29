@@ -1,7 +1,4 @@
-"""
-Seed script to populate sample data.
-Run with: python scripts/seed.py
-"""
+
 
 import os
 import sys
@@ -16,7 +13,7 @@ from gradebook import storage  # noqa: E402
 
 
 def main():
-    # reset data to empty first
+
     data = {"students": [], "courses": [], "enrollments": []}
     storage.save_data(data)
 

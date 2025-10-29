@@ -1,7 +1,4 @@
-"""
-Persistence layer for gradebook data.
-Reads/writes a JSON file.
-"""
+
 
 import json
 import os
@@ -20,19 +17,14 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s",
 )
 
-# Default data file
+
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
 os.makedirs(DATA_DIR, exist_ok=True)
 DEFAULT_PATH = os.path.join(DATA_DIR, "gradebook.json")
 
 
 def load_data(path: str = DEFAULT_PATH) -> Dict[str, Any]:
-    """
-    Load gradebook data from disk.
-    Returns a dict with keys: students, courses, enrollments.
-    If file doesn't exist -> start empty.
-    If JSON is invalid -> log error and raise.
-    """
+
     if not os.path.exists(path):
         logging.info("Data file not found. Starting with empty dataset.")
         return {"students": [], "courses": [], "enrollments": []}
